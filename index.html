@@ -978,7 +978,7 @@
                 product.addEventListener('click', () => {
                     const name = product.getAttribute('data-name');
                     const price = product.getAttribute('data-price');
-                    const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}.`;
+                    const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}. Vengo del Sitio Web.`;
                     const url = `https://wa.me/584121206454?text=${encodeURIComponent(message)}`;
                     
                     window.open(url, '_blank');
