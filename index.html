@@ -283,66 +283,61 @@
         }
 
 
+     /* Estilos del modal */
+     .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 
-        .modal {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Mantenerlo en la misma posición */
-    z-index: 1; /* Asegurarse de que esté sobre otros elementos */
-    left: 0;
-    top: 0;
-    width: 100%; /* Ancho completo */
-    height: 100%; /* Alto completo */
-    overflow: auto; /* Habilitar scroll si es necesario */
-    background-color: rgb(0, 0, 0); /* Fondo negro */
-    background-color: rgba(0, 0, 0, 0.8); /* Con opacidad */
-}
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% desde arriba y centrado */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Ancho del modal */
-    max-width: 600px; /* Máximo ancho del modal */
-    text-align: center;
-}
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    /* Estilos para imágenes y botón */
+    #modalImage {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 20px;
+    }
 
-#modalImage {
-    max-width: 100%; /* Imagen responsiva */
-    height: auto; /* Mantener proporciones */
-}
+    #whatsappButton {
+        background-color: #25d366;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+    }
 
-#whatsappButton {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #25D366; /* Color de WhatsApp */
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#whatsappButton:hover {
-    background-color: #128C7E; /* Color de hover */
-}
-
-
-
-
-
+    #whatsappButton:hover {
+        background-color: #128c7e;
+    }
+ 
 
 
     </style>
@@ -982,14 +977,14 @@
 
             </div>
         </div>
-
-        <div id="productModal" class="modal">
-            <div class="modal-content">
-                <span class="close" onclick="closeModal()">&times;</span>
-                <img id="modalImage" src="" alt="Producto">
-                <button id="whatsappButton">WhatsApp</button>
-            </div>
-        </div>
+<!-- Modal -->
+<div id="productModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="Producto">
+        <button id="whatsappButton">WhatsApp</button>
+    </div>
+</div>
         
     </main>
     <footer>
@@ -1046,37 +1041,49 @@
                 searchProducts(searchQuery);
             });
 
-// Funcionalidad de productos
-products.forEach(product => {
-    product.addEventListener('click', () => {
-        const name = product.getAttribute('data-name');
-        const price = product.getAttribute('data-price');
-        
-        // Establecer el contenido del modal
-        document.getElementById('modalImage').src = product.getAttribute('data-image'); // Supongamos que tienes una imagen asociada al producto
-        document.getElementById('whatsappButton').onclick = () => {
-            const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}. Vengo del Sitio Web.`;
-            const url = `https://wa.me/584121206454?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
-        };
-
-        // Mostrar el modal
-        document.getElementById('productModal').style.display = 'block';
-    });
-});
-
-// Cierra el modal al hacer clic en la 'x'
+// Función para cerrar el modal
 function closeModal() {
     document.getElementById('productModal').style.display = 'none';
 }
 
-// Cierra el modal si se hace clic fuera del contenido del modal
-window.onclick = function(event) {
+// Abrir modal y configurar contenido dinámico
+function openModal(product) {
+    const name = product.getAttribute('data-name');
+    const price = product.getAttribute('data-price');
+    const imageSrc = product.getAttribute('data-image');
+
+    // Establecer la imagen del producto en el modal
+    document.getElementById('modalImage').src = imageSrc;
+
+    // Configurar la función del botón de WhatsApp
+    document.getElementById('whatsappButton').onclick = function () {
+        const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}. Vengo del Sitio Web.`;
+        const url = `https://wa.me/584121206454?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    };
+
+    // Mostrar el modal
+    document.getElementById('productModal').style.display = 'block';
+}
+
+// Funcionalidad para los productos
+products.forEach(product => {
+    product.addEventListener('click', () => {
+        openModal(product);
+    });
+});
+
+// Evento para cerrar el modal cuando se hace clic en la "X"
+document.querySelector('.close').addEventListener('click', closeModal);
+
+// Cerrar modal si se hace clic fuera del contenido del modal
+window.addEventListener('click', function (event) {
     const modal = document.getElementById('productModal');
     if (event.target === modal) {
         closeModal();
     }
-}
+});
+
 
 
             // Función para obtener el precio del dólar
