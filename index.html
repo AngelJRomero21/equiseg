@@ -281,6 +281,70 @@
                 font-size: 1rem;
             }
         }
+
+
+
+        .modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Mantenerlo en la misma posición */
+    z-index: 1; /* Asegurarse de que esté sobre otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilitar scroll si es necesario */
+    background-color: rgb(0, 0, 0); /* Fondo negro */
+    background-color: rgba(0, 0, 0, 0.8); /* Con opacidad */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% desde arriba y centrado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Máximo ancho del modal */
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#modalImage {
+    max-width: 100%; /* Imagen responsiva */
+    height: auto; /* Mantener proporciones */
+}
+
+#whatsappButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #25D366; /* Color de WhatsApp */
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#whatsappButton:hover {
+    background-color: #128C7E; /* Color de hover */
+}
+
+
+
+
+
+
+
     </style>
     
 </head>
@@ -729,7 +793,7 @@
                     </div>
                 
                     <div class="product" data-name=" BOTAS DE SEGURIDAD SAGA MODELO 3043" data-price="35.00" data-category="pies">
-                        <img src="https://via.placeholder.com/300x200?text=Producto+11" alt="Producto 11">
+                        <img src="https://i.imgur.com/NrKgDEU.png" alt="Producto 11">
                         <div class="product-info">
                             <h2> BOTAS DE SEGURIDAD SAGA MODELO 3043</h2>
                             <div class="price">
@@ -773,7 +837,7 @@
                     </div>
                 
                     <div class="product" data-name=" BOTAS DE SEGURIDAD MODELO TITAN BLACK" data-price="30.00" data-category="pies">
-                        <img src="https://via.placeholder.com/300x200?text=Producto+15" alt="Producto 15">
+                        <img src="https://i.imgur.com/LYzJpd6.jpeg" alt="Producto 15">
                         <div class="product-info">
                             <h2> BOTAS DE SEGURIDAD MODELO TITAN BLACK</h2>
                             <div class="price">
@@ -914,9 +978,83 @@
                             </div>
                         </div>
                     </div>
+                    <div class="product" data-name=" IMPERMEABLE TIPO MOTORIZADO" data-price="15.00" data-category="cuerpo">
+                        <img src="https://i.imgur.com/RXLajHx.jpeg" alt="Producto 6">
+                        <div class="product-info">
+                            <h2> IMPERMEABLE TIPO MOTORIZADO</h2>
+                            <div class="price">
+                                <p>$15.00</p>
+                                <p id="price-bs-6">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="product" data-name="PANTALON DE CABALLERO TRIPLE COSTURA TALLA REGULAR" data-price="14.00" data-category="cuerpo">
+                        <img src="https://i.imgur.com/u5Xavbe.jpeg" alt="Producto 7">
+                        <div class="product-info">
+                            <h2> PANTALON DE CABALLERO TRIPLE COSTURA TALLA REGULAR</h2>
+                            <div class="price">
+                                <p>$14.00</p>
+                                <p id="price-bs-7">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="product" data-name="PANTALON DE CABALLERO TRIPLE COSTURA TALLA PLUS" data-price="16.00" data-category="cuerpo">
+                        <img src="https://i.imgur.com/u5Xavbe.jpeg" alt="Producto 8">
+                        <div class="product-info">
+                            <h2>PANTALON DE CABALLERO TRIPLE COSTURA TALLA PLUS</h2>
+                            <div class="price">
+                                <p>$16.00</p>
+                                <p id="price-bs-8">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="product" data-name="PANTALON DE DAMA STRESS TALLA REGULAR" data-price="16.00" data-category="cuerpo">
+                        <img src="https://i.imgur.com/iuu9aZ6.jpeg" alt="Producto 9">
+                        <div class="product-info">
+                            <h2>PANTALON DE DAMA STRESS TALLA REGULAR</h2>
+                            <div class="price">
+                                <p>$16.00</p>
+                                <p id="price-bs-9">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="product" data-name="PANTALON DE DAMA STRESS TALLA PLUS" data-price="18.00" data-category="cuerpo" data-image="https://i.ibb.co/rM0F5Xf/Captura-de-pantalla-2024-10-02-195833.png">
+                        <img src="https://i.imgur.com/iuu9aZ6.jpeg" alt="Producto 10">
+                        <div class="product-info">
+                            <h2>PANTALON DE DAMA STRESS TALLA PLUS</h2>
+                            <div class="price">
+                                <p>$18.00</p>
+                                <p id="price-bs-10">Cargando...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+
+
+
+
+
+
+
+
 
             </div>
         </div>
+
+        <div id="productModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <img id="modalImage" src="" alt="Producto">
+                <button id="whatsappButton">WhatsApp</button>
+            </div>
+        </div>
+        
     </main>
     <footer>
         <div class="container">
@@ -972,17 +1110,38 @@
                 searchProducts(searchQuery);
             });
 
-            // Funcionalidad de productos
-            products.forEach(product => {
-                product.addEventListener('click', () => {
-                    const name = product.getAttribute('data-name');
-                    const price = product.getAttribute('data-price');
-                    const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}. Vengo del Sitio Web.`;
-                    const url = `https://wa.me/584121206454?text=${encodeURIComponent(message)}`;
-                    
-                    window.open(url, '_blank');
-                });
-            });
+// Funcionalidad de productos
+products.forEach(product => {
+    product.addEventListener('click', () => {
+        const name = product.getAttribute('data-name');
+        const price = product.getAttribute('data-price');
+        
+        // Establecer el contenido del modal
+        document.getElementById('modalImage').src = product.getAttribute('data-image'); // Supongamos que tienes una imagen asociada al producto
+        document.getElementById('whatsappButton').onclick = () => {
+            const message = `¡Hola! Estoy interesado en el ${name} que cuesta $${price}. Vengo del Sitio Web.`;
+            const url = `https://wa.me/584121206454?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        };
+
+        // Mostrar el modal
+        document.getElementById('productModal').style.display = 'block';
+    });
+});
+
+// Cierra el modal al hacer clic en la 'x'
+function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
+}
+
+// Cierra el modal si se hace clic fuera del contenido del modal
+window.onclick = function(event) {
+    const modal = document.getElementById('productModal');
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+
 
             // Función para obtener el precio del dólar
             async function getDollarPrice() {
