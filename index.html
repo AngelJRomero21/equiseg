@@ -1345,9 +1345,9 @@ window.addEventListener('click', function (event) {
             // Función para obtener el precio del dólar
             async function getDollarPrice() {
                 try {
-                    const response = await fetch('https://pydolarve.org/api/v1/dollar?page=bcv');
+                    const response = await fetch('https://api.dolarvzla.com/public/exchange-rate');
                     const data = await response.json();
-                    return data.monitors.usd.price;
+                    return data.current.usd;
                 } catch (error) {
                     console.error('Error fetching USD price:', error);
                     return null;
@@ -1355,44 +1355,44 @@ window.addEventListener('click', function (event) {
             }
 
             // Función para actualizar los precios
-          //  async function updatePrices() {
-            //    const usdPrice = await getDollarPrice();
+          async function updatePrices() {
+            const usdPrice = await getDollarPrice();
 
-              //  if (usdPrice) {
-                //    products.forEach((product, index) => {
-                  //      const productPriceUsd = parseFloat(product.getAttribute('data-price'));
-                    //    const priceBs = (productPriceUsd * usdPrice).toFixed(2);
-                      //  const priceBsElement = product.querySelector('.price p:last-child');
+                if (usdPrice) {
+                    products.forEach((product, index) => {
+                      const productPriceUsd = parseFloat(product.getAttribute('data-price'));
+                        const priceBs = (productPriceUsd * usdPrice).toFixed(2);
+                        const priceBsElement = product.querySelector('.price p:last-child');
                         
-                         // priceBsElement.textContent = `Bs. ${priceBs}`;
-                 //   });
-               // } else {
-                 //   products.forEach((product) => {
-                   //     const priceBsElement = product.querySelector('.price p:last-child');
+                          priceBsElement.textContent = `Bs. ${priceBs}`;
+                 });
+                } else {
+                    products.forEach((product) => {
+                        const priceBsElement = product.querySelector('.price p:last-child');
                         
-                     //   priceBsElement.textContent = '';
-               //     });
-         //       }
-           // }
+                        priceBsElement.textContent = '';
+                    });
+                }
+            }
 
-          //  updatePrices();
+            updatePrices();
 
 
 
 // Función para actualizar los precios con tasa fija
-function updatePrices() {
-    const tasaFija = 130; // 1 USD = 100 Bs
+// function updatePrices() {
+  //  const tasaFija = 130; // 1 USD = 100 Bs
 
-    products.forEach((product) => {
-        const productPriceUsd = parseFloat(product.getAttribute('data-price'));
-        const priceBs = (productPriceUsd * tasaFija).toFixed(2);
-        const priceBsElement = product.querySelector('.price p:last-child');
+   //  products.forEach((product) => {
+       // const productPriceUsd = parseFloat(product.getAttribute('data-price'));
+       // const priceBs = (productPriceUsd * tasaFija).toFixed(2);
+       // const priceBsElement = product.querySelector('.price p:last-child');
 
-        priceBsElement.textContent = `Bs. ${priceBs}`;
-    });
-}
+     //   priceBsElement.textContent = `Bs. ${priceBs}`;
+   // });
+// }
 
-updatePrices();
+// updatePrices();
 
 
 
@@ -1460,5 +1460,6 @@ updatePrices();
   </script>
 </body>
 </html>
+
 
 
